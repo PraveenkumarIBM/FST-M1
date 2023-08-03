@@ -1,0 +1,30 @@
+ACTIVITY 3
+In this activity, we will be writing different SELECT statements with WHERE clause.
+Write SELECT statements for the following outputs:
+Show data from the salesman_id and salesman_city columns
+Show data of salesman from Paris
+Show salesman_id and commission of Paul Adam
+
+Answers :
+
+-- Show data from the salesman_id and city columns
+SELECT salesman_id, salesman_city FROM salesman;
+
+-- Show data of salesman from Paris
+SELECT * FROM salesman WHERE salesman_city='Paris';
+
+-- Show salesman_id and commission of Paul Adam
+SELECT salesman_id, commission FROM salesman WHERE salesman_name='Paul Adam';
+
+ALTER TABLE Persons MODIFY DateOfBirth year; 
+
+UPDATE Customers
+SET ContactName='Alfred Schmidt', City='Frankfurt'
+WHERE CustomerID=1;
+
+UPDATE Customers
+SET ContactName='Juan'
+WHERE Country='Mexico';
+
+
+DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';
