@@ -1,34 +1,116 @@
+/*
+Alchemy FST Batch May2023
+Activity-1 : Description:
+Next, in the @Test method,
+Use the findElement() method to locate a number on the calculator numpad and click it.
+Locate the multiplication(*) symbol and click it.
+Locate another number on the calculator numpad and click it.
+Locate the equal to button and click it.
+Finally, locate the view where the final result is shown and get the text in it.
+At the end of the method, write an assertion statement to verify your result.
+Auther: Bharat Gaikwad
+Created on 03/07/2023
+ */
 package activities;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-
+import io.appium.java_client.android.options.UiAutomator2Options;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.testng.annotations.Test;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class Activity1 {
-	 // Instantiate Appium Driver
-    AppiumDriver<MobileElement> driver = null;
+public class Activity1{
+    WebDriverWait wait;
+    AndroidDriver driver;
+    String result=null;
+    //setup desired capabilities
+
+    @BeforeClass
+    public void setupDesiredCapabilities() throws MalformedURLException {
+        UiAutomator2Options options = new UiAutomator2Options();
+        options.setPlatformName("android");
+        options.setAutomationName("UiAutomator2");
+        options.setAppPackage("com.android.calculator2");
+        options.setAppActivity(".Calculator");
+        options.noReset();
+        //Set server URL
+        URL appiumserverURL = new URL("http://localhost:4723/wd/hub");
+
+        //initialize the android driver
+        driver = new AndroidDriver(appiumserverURL, options);
+    }
+    //calculator methods
     @Test
-    public void calc() throws InterruptedException, IOException {
-        // Set the Desired Capabilities
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("deviceName", "PixelEmulator");
-        caps.setCapability("platformName", "Android");
-        caps.setCapability("appPackage", "com.android.calculator2");
-        caps.setCapability("appActivity", "com.android.calculator2.Calculator");
-         
-        try {
-            // Initialize driver
-        	driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
-            System.out.println("Calculator is open");
-        } catch (MalformedURLException e) {
-            System.out.println(e.getMessage());
-        }
+    public void calculateAddition() throws IOException {
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        //Perform the addition of two numbers
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.id("digit_0")).click();
+        driver.findElement(AppiumBy.accessibilityId("plus")).click();
+        driver.findElement(AppiumBy.id("digit_3")).click();
+        driver.findElement(AppiumBy.id("digit_4")).click();
+        driver.findElement(AppiumBy.id("digit_7")).click();
+        driver.findElement(AppiumBy.accessibilityId("equals")).click();
+        result=driver.findElement(AppiumBy.id("result")).getText();
+        util.takeScreenshot(testName,this.driver);
+        Assert.assertEquals(result, "597");
+    }
+    @Test
+    public void calculateSubstraction() throws IOException {
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.id("digit_7")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.accessibilityId("minus")).click();
+        driver.findElement(AppiumBy.id("digit_8")).click();
+        driver.findElement(AppiumBy.id("digit_4")).click();
+        driver.findElement(AppiumBy.id("digit_7")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.accessibilityId("equals")).click();
+        result=driver.findElement(AppiumBy.id("result")).getText();
+        util.takeScreenshot(testName,this.driver);
+        Assert.assertEquals(result, "−5,900");
+    }
+    @Test
+    public void calculateMultiplication() throws IOException {
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.accessibilityId("multiply")).click();
+        driver.findElement(AppiumBy.id("digit_8")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.accessibilityId("equals")).click();
+        result=driver.findElement(AppiumBy.id("result")).getText();
+        util.takeScreenshot(testName,this.driver);
+        Assert.assertEquals(result, "2,125");
+    }
+    @Test
+    public void calculateDivision() throws IOException {
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        driver.findElement(AppiumBy.id("digit_6")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.accessibilityId("divide")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.accessibilityId("equals")).click();
+        result=driver.findElement(AppiumBy.id("result")).getText();
+        util.takeScreenshot(testName,this.driver);
+        Assert.assertEquals(result, "25");
+    }
+    @AfterClass
+    //Close the browser
+    public void closeCalculatorApp(){
+
+        driver.quit();
     }
 }

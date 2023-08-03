@@ -1,72 +1,87 @@
+/*
+Alchemy FST Batch May2023
+Activity-6 : Description :Write a Appium test script to perform the following:
+Open Google Chrome on your mobile device/emulator and open the following URL: https://www.training-support.net/selenium/lazy-loading
+Get the number of images shown in the view
+Scroll to the card with Helen's post
+Get number of images shown on the screen after scrolling.
+Auther: Bharat Gaikwad
+Created on 03/07/2023
+ */
 package activities;
-
-import org.testng.annotations.Test;
-
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-
-import org.testng.annotations.BeforeClass;
-
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 
-import org.openqa.selenium.remote.DesiredCapabilities;
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import junit.framework.Assert;
 
-public class Activity6 {
-    AppiumDriver<MobileElement> driver = null;
+public class Activity6
+{
+    AndroidDriver driver ;
     WebDriverWait wait;
 
     @BeforeClass
-    public void beforeClass() throws MalformedURLException {
+    public void setDesiredCapabilities() throws MalformedURLException
+    {
         // Set the Desired Capabilities
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("deviceName", "PixelEmulator");
-	    caps.setCapability("platformName", "android");
-        caps.setCapability("appPackage", "com.android.chrome");
-        caps.setCapability("appActivity", "com.google.android.apps.chrome.Main");
-        caps.setCapability("noReset", true);
+        UiAutomator2Options options = new UiAutomator2Options();
+        options.setCapability("deviceName", "MyphoneP4A28");
+        options.setCapability("platformName", "android");
+        options.setCapability("automationName", "UiAutomator2");
+        options.setCapability("appPackage", "com.android.chrome");
+        options.setCapability("appActivity", "com.google.android.apps.chrome.Main");
+        options.setCapability("noReset", true);
 
-        // Instantiate Appium Driver
-        URL appServer = new URL("http://0.0.0.0:4723/wd/hub");
-        driver = new AndroidDriver<MobileElement>(appServer, caps);
-        wait = new WebDriverWait(driver, 5);
+        URL appiumserverUrl = new URL("http://127.0.0.1:4723/wd/hub");
+
+        driver = new AndroidDriver (appiumserverUrl,options);
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         driver.get("https://www.training-support.net/selenium/lazy-loading");
     }
 
     @Test
     public void imageScrollTest() {
-        // wait for page to load
-        MobileElement pageTitle = driver.findElementByClassName("android.widget.TextView");
-        wait.until(ExpectedConditions.textToBePresentInElement(pageTitle, "Lazy Loading"));
 
-        // Count the number of images shown on the screen
-        List<MobileElement> numberOfImages = driver.findElementsByXPath("//android.view.View/android.view.View/android.widget.Image");
-        System.out.println("Number of image shown currently: " + numberOfImages.size());
-        
-        // Assertion before scrolling
-        Assert.assertEquals(numberOfImages.size(), 4);
-        
-        // Scroll to Helen's post
-        driver.findElement(MobileBy.AndroidUIAutomator("UiScrollable(UiSelector()).scrollTextIntoView(\"helen\")"));
-        
-        // Find the number of images shown after scrolling
-        numberOfImages = driver.findElementsByXPath("//android.view.View/android.view.View/android.widget.Image");
-        System.out.println("Number of image shown currently: " + numberOfImages.size());
-        
-        // Assertion after scrolling
-        Assert.assertEquals(numberOfImages.size(), 4);
+        String UiScrollable = "UiScrollable(UiSelector().scrollable(true))";
+        // Wait for page to load
+        wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.className("android.widget.Image")));
+
+        // Find all the image elements on the page
+        List<WebElement> imageElements = driver.findElements(AppiumBy.className("android.widget.Image"));
+
+        // Print the number of images
+        System.out.println("Image count Before scroll: " + imageElements.size());
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        // Scroll using UiScrollable
+        driver.findElement(AppiumBy.androidUIAutomator(UiScrollable + ".scrollTextIntoView(\"helen\")"));
+
+        // Get image elements after scroll
+        imageElements = driver.findElements(AppiumBy.className("android.widget.Image"));
+
+        // Print the number of images after scroll
+        System.out.println("Image count After scroll: " + imageElements.size());
+
+        // Assertions
+        Assert.assertEquals(5,imageElements.size());
     }
 
+    //Close the Browser
     @AfterClass
-    public void afterClass() {
+    public void closeBrowser() {
+
         driver.quit();
     }
 }

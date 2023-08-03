@@ -1,74 +1,115 @@
+/*
+Alchemy FST Batch May2023
+Activity-4 : Descripton:Add a new contact to the list of contacts:
+Find and click the button to add a new contact.
+Find and fill the first name, last name, and phone number fields with the data provided.
+Click on Save.
+Write an assertion to ensure the new contact has been added.
+Auther: Bharat Gaikwad
+Created on 03/07/2023
+ */
 package activities;
 
-import org.testng.annotations.Test;
-
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-
-import org.testng.annotations.BeforeClass;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.openqa.selenium.remote.DesiredCapabilities;
+import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
 
 public class Activity4 {
-    AppiumDriver<MobileElement> driver = null;
+    // Driver Declaration
+    AndroidDriver driver;
     WebDriverWait wait;
 
+    // Set Desired Capabilities
     @BeforeClass
-    public void beforeClass() throws MalformedURLException {
-        // Set the Desired Capabilities
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("deviceName", "PixelEmulator");
-	      caps.setCapability("platformName", "android");
-        caps.setCapability("appPackage", "com.android.contacts");
-        caps.setCapability("appActivity", ".activities.PeopleActivity");
-        caps.setCapability("noReset", true);
+    public void setDesiredCapabilities() throws MalformedURLException {
+        // Desired Capabilities
+        UiAutomator2Options options = new UiAutomator2Options();
+        options.setPlatformName("android");
+        options.setAutomationName("UiAutomator2");
+        options.setAppPackage("com.android.contacts");
+        options.setAppActivity(".activities.PeopleActivity");
+        options.noReset();
 
-        // Instantiate Appium Driver
-        URL appServer = new URL("http://0.0.0.0:4723/wd/hub");
-        driver = new AndroidDriver<MobileElement>(appServer, caps);
-        wait = new WebDriverWait(driver, 5);
+        // Server Address
+        URL serverURL = new URL("http://localhost:4723/wd/hub");
+
+        // Driver Initialization
+        driver = new AndroidDriver(serverURL, options);
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
+    // Test method
     @Test
-    public void addContact() {
-        // Click on add new contact floating button
-        driver.findElementByAccessibilityId("Create new contact").click();
-        
-        // Find the first name, last name, and phone number fields
-        MobileElement firstName = driver.findElementByXPath("//android.widget.EditText[@text='First name']");
-        MobileElement lastName = driver.findElementByXPath("//android.widget.EditText[@text='Surname']");
-        MobileElement phoneNumber = driver.findElementByXPath("//android.widget.EditText[@text='Phone']");
-        
-        // Enter the text in the fields
-        firstName.sendKeys("Aaditya");
-        lastName.sendKeys("Varma");
-        phoneNumber.sendKeys("9991284782");
-        
-        // Save the contact
-        driver.findElementById("editor_menu_save_button").click();
-        
-        // Wait for contact card to appear
-        wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.id("toolbar_parent")));
+    public void createContact() throws IOException {
+        // Find and click the add button
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        driver.findElement(AppiumBy.accessibilityId("Create new contact")).click();
 
+        // Wait for elements to load
+        wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("//android.widget.EditText[@text='First name']")));
+
+        // Enter the details
+        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@text='First name']")).sendKeys("Bharat");
+        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@text='Last name']")).sendKeys("Gaikwad");
+        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@text='Phone']")).sendKeys("8007779885");
+        // Click Save
+        driver.findElement(AppiumBy.id("editor_menu_save_button")).click();
+
+        // Wait for contact to save
+        wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.id("large_title")));
+        util.takeScreenshot(testName,this.driver);
         // Assertion
-        MobileElement mobileCard = driver.findElementById("toolbar_parent");
-        Assert.assertTrue(mobileCard.isDisplayed());
-        
-        String contactName = driver.findElementById("large_title").getText();
-        Assert.assertEquals(contactName, "Aaditya Varma");
+        String contactName = driver.findElement(AppiumBy.id("large_title")).getText();
+        Assert.assertEquals(contactName, "Bharat Gaikwad");
     }
+    @Test
+    public void deleteContact() throws IOException {
 
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        // Click on More options button
+        driver.findElement(AppiumBy.accessibilityId("More options")).click();
+
+        // Wait for More options menu to appear
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.xpath("//android.widget.TextView[@text='Delete']")));
+
+        // Click on the Delete option
+        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Delete']")).click();
+
+        // Wait for Delete confirmation pop up to appear
+        wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.xpath("//android.widget.Button[@text='DELETE']")));
+        util.takeScreenshot(testName,this.driver);
+        // Click on the Delete button
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        driver.findElement(AppiumBy.xpath("//android.widget.Button[@text='DELETE']")).click();
+
+    }
+    @Test
+    public void verifyContactListEmpty() throws IOException {
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        // Wait for the Contact list to appear
+        wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.xpath("//android.widget.TextView[@text='Your contacts list is empty']")));
+        util.takeScreenshot(testName, this.driver);
+        // Assertion
+        String emptyContactList = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Your contacts list is empty']")).getText();
+        Assert.assertEquals(emptyContactList, "Your contacts list is empty");
+    }
+    // Close the app
     @AfterClass
-    public void afterClass() {
-        driver.quit();
+    public void closeApp() {
+
+        //driver.quit();
     }
 }

@@ -1,97 +1,140 @@
+/*
+Alchemy FST Batch May2023
+Activity-3 : Description: ACTIVITY 3
+In @Test methods, perform the following operations:
+Calculate 1050 + 2582 and print the result to the console.
+Calculate 7250 - 5280 and print the result to the console.
+Calculate 5137 * 6289 and print the result to the console.
+Calculate 5025 / 2005 and print the result to the console.
+Write assertions for all the results.
+Auther: Bharat Gaikwad
+Created on 03/07/2023
+ */
 package activities;
 
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-
-import org.testng.annotations.BeforeClass;
-
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
+public class Activity3{
+    AndroidDriver  driver;
 
-public class Activity3 {
-	AppiumDriver<MobileElement> driver = null;
-  @Test
-  public void add() {
-      driver.findElementById("digit_5").click();
-      driver.findElementById("op_add").click();
-      driver.findElementById("digit_9").click();
-      // Perform Calculation
-      driver.findElementById("eq").click();
+    @BeforeClass
+    //set desired capabilities
+    public void setupDesiredCapabilities() throws MalformedURLException {
+        UiAutomator2Options options =new UiAutomator2Options();
+        options.setPlatformName("android");
+        options.setAppPackage("com.android.calculator2");
+        options.setAppActivity(".Calculator");
+        options.noReset();
 
-      // Display Result
-      String result = driver.findElementById("result").getText();
-      System.out.println(result);
-      Assert.assertEquals(result, "14");
-  }	
-  @Test
-  public void subtract() {
-      driver.findElementById("digit_1").click();
-      driver.findElementById("digit_0").click();
-      driver.findElementById("op_sub").click();
-      driver.findElementById("digit_5").click();
-      // Perform Calculation
-      driver.findElementById("eq").click();
+        //Set server address
+        URL serverURL=new URL("http://localhost:4723/wd/hub");
 
-      // Display Result
-      String result = driver.findElementById("result").getText();
-      System.out.println(result);
-      Assert.assertEquals(result, "5");
-  }
+        //initialize the Android driver
+        driver=new AndroidDriver(serverURL,options);
+    }
+    //Calculators methods
+    @Test(priority = 0)
+    public void calculateAdditionMethod() throws IOException {
+        // Perform the calculation
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        driver.findElement(AppiumBy.id("digit_1")).click();
+        driver.findElement(AppiumBy.id("digit_0")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.id("digit_0")).click();
+        driver.findElement(AppiumBy.accessibilityId("plus")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.id("digit_8")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.accessibilityId("equals")).click();
+        util.takeScreenshot(testName,this.driver);
 
-  @Test
-  public void multiply() {
-      driver.findElementById("digit_5").click();
-      driver.findElementById("op_mul").click();
-      driver.findElementById("digit_1").click();
-      driver.findElementById("digit_0").click();
-      driver.findElementById("digit_0").click();
-      // Perform Calculation
-      driver.findElementById("eq").click();
+        // Find the result
+        String result = driver.findElement(AppiumBy.id("result")).getText();
 
-      // Display Result
-      String result = driver.findElementById("result").getText();
-      System.out.println(result);
-      Assert.assertEquals(result, "500");
-  }
+        // Assertion
+        Assert.assertEquals(result, "3,632");
+        System.out.println("Addition Result :"+result);
+    }
+    @Test(priority = 1)
+    public void calculateSubstractionMethod() throws IOException {
+        // Perform the calculation
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        driver.findElement(AppiumBy.id("digit_7")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.id("digit_0")).click();
+        driver.findElement(AppiumBy.accessibilityId("minus")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_8")).click();
+        driver.findElement(AppiumBy.id("digit_0")).click();
+        driver.findElement(AppiumBy.accessibilityId("equals")).click();
+        util.takeScreenshot(testName,this.driver);
+        // Find the result
+        String result = driver.findElement(AppiumBy.id("result")).getText();
 
-  @Test
-  public void divide() {
-      driver.findElementById("digit_5").click();
-      driver.findElementById("digit_0").click();
-      driver.findElementById("op_div").click();
-      driver.findElementById("digit_2").click();
-      // Perform Calculation
-      driver.findElementById("eq").click();
-
-      // Display Result
-      String result = driver.findElementById("result").getText();
-      System.out.println(result);
-      Assert.assertEquals(result, "25");
-  }
-  @BeforeClass
-  public void beforeClass() throws MalformedURLException {
-		  DesiredCapabilities caps = new DesiredCapabilities();
-	      caps.setCapability("deviceName", "PixelEmulator");
-	      caps.setCapability("platformName", "android");
-	      caps.setCapability("appPackage", "com.android.calculator2");
-	      caps.setCapability("appActivity", ".Calculator");
-	      caps.setCapability("noReset", true);
-	 
-        // Instantiate Appium Driver
-        URL appServer = new URL("http://0.0.0.0:4723/wd/hub");
-	        driver = new AndroidDriver<MobileElement>(appServer, caps);
-  }
-
-  @AfterClass
-  public void afterClass() {
-	  driver.quit();
-  }
-
+        // Assertion
+        Assert.assertEquals(result, "1,970");
+        System.out.println("Subtraction Result :"+result);
+    }
+    @Test(priority = 2)
+    public void calculateMultiplicationMethod() throws IOException {
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        // Perform the calculation
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.id("digit_1")).click();
+        driver.findElement(AppiumBy.id("digit_3")).click();
+        driver.findElement(AppiumBy.id("digit_7")).click();
+        driver.findElement(AppiumBy.accessibilityId("multiply")).click();
+        driver.findElement(AppiumBy.id("digit_6")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_8")).click();
+        driver.findElement(AppiumBy.id("digit_9")).click();
+        driver.findElement(AppiumBy.accessibilityId("equals")).click();
+        util.takeScreenshot(testName,this.driver);
+        // Find the result
+        String result = driver.findElement(AppiumBy.id("result")).getText();
+        // Assertion
+        Assert.assertEquals(result, "32,306,593");
+        System.out.println("Multiplication Result :"+result);
+    }
+    @Test(priority = 3)
+    public void calculateDivisionMethod() throws IOException {
+        // Perform the calculation
+        String testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.id("digit_0")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.accessibilityId("divide")).click();
+        driver.findElement(AppiumBy.id("digit_2")).click();
+        driver.findElement(AppiumBy.id("digit_0")).click();
+        driver.findElement(AppiumBy.id("digit_0")).click();
+        driver.findElement(AppiumBy.id("digit_5")).click();
+        driver.findElement(AppiumBy.accessibilityId("equals")).click();
+        util.takeScreenshot(testName,this.driver);
+        // Find the result
+        String result = driver.findElement(AppiumBy.id("result")).getText();
+        // Assertion
+        Assert.assertEquals(result, "2.506234413965");
+        System.out.println("Division Result :"+result);
+    }
+    //Close the calculator app
+    @AfterClass
+    public void closeCalculatorApp(){
+        driver.quit();
+    }
 }
+
