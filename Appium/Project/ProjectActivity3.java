@@ -1,18 +1,4 @@
-/*
-Alchemy FST Batch May2023
-ProjectActivity-3 Goal: Use the Google Keep app to add a note with a reminder [Bonus]
-Open the Google Keep app.
-Click the Create New Note button to add a new Note.
-Add a title for the note and add a small description.
-Click the reminder icon on the toolbar to add a reminder for Afternoon of the same day.
-Press the back button and switch to the Reminders page.
-Make an assertion to ensure that the note was added w
-Auther: Bharat Gaikwad
-Created on 05/07/2023
- */
-
 package Project;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
