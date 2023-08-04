@@ -1,15 +1,4 @@
-/*
-Alchemy FST Batch May2023
-Activity-5 : Description:Write a script to perform the following actions:
-Open the SMS application
-Click the "Create New Message" button to write a new SMS.
-Locate the contact fields and enter your own phone number to send a message to your own phone number.
-Locate the message input field and enter the message "Hello from Appium".
-Locate the send button and click it.
-Write an assertion to verify that the message has been sent successfully.
-Auther: Bharat Gaikwad
-Created on 03/07/2023
- */
+
 package activities;
 
 
