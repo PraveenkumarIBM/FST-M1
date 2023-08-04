@@ -1,16 +1,4 @@
-/*
-Alchemy FST Batch May2023
-Activity-1 : Description:
-Next, in the @Test method,
-Use the findElement() method to locate a number on the calculator numpad and click it.
-Locate the multiplication(*) symbol and click it.
-Locate another number on the calculator numpad and click it.
-Locate the equal to button and click it.
-Finally, locate the view where the final result is shown and get the text in it.
-At the end of the method, write an assertion statement to verify your result.
-Auther: Bharat Gaikwad
-Created on 03/07/2023
- */
+
 package activities;
 
 import io.appium.java_client.AppiumBy;
