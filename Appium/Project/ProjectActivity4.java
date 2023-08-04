@@ -1,21 +1,4 @@
-/*
-Alchemy FST Batch May2023
-ProjectActivity-4 Goal: Opening a page on the browser and testing a to-do list page
-Open the Chrome app on your device.
-Go to the following URL: https://www.training-support.net/selenium
-Scroll to find the To-Do List card and click it.
-Once the page loads, find the input field on the page and enter the following three tasks:
-Add tasks to list
-Get number of tasks
-Clear the list
-Click on each of the tasks added to strike them out.
-Finally, clear the list.
-Add assertions to verify that the test has passed or failed.
 
-Auther: Bharat Gaikwad
-Created on 04/07/2023
-
- */
 package Project;
 
 
