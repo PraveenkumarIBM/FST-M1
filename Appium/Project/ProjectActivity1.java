@@ -1,17 +1,3 @@
-/*
-Alchemy FST Batch May2023
-ProjectActivity-1 Goal: Use the Google Tasks app to create a list of activities that need to be completed.
-Open the Google Tasks app.
-Click the button to add a new task.
-Add the following tasks:
-Complete Activity with Google Tasks
-Complete Activity with Google Keep
-Complete the second Activity Google Keep
-After each task is added, the Save button should be clicked.
-Write an assertion to ensure all three tasks have been added to the list.
-Auther: Bharat Gaikwad
-Created on 05/07/2023
- */
 package Project;
 import java.net.MalformedURLException;
 import java.net.URL;
