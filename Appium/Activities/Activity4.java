@@ -1,13 +1,4 @@
-/*
-Alchemy FST Batch May2023
-Activity-4 : Descripton:Add a new contact to the list of contacts:
-Find and click the button to add a new contact.
-Find and fill the first name, last name, and phone number fields with the data provided.
-Click on Save.
-Write an assertion to ensure the new contact has been added.
-Auther: Bharat Gaikwad
-Created on 03/07/2023
- */
+
 package activities;
 
 import io.appium.java_client.AppiumBy;
