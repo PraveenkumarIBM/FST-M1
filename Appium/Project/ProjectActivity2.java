@@ -1,13 +1,3 @@
-/*
-Alchemy FST Batch May2023
-ProjectActivity-2 Goal: Use the Google Keep app to add a note.
-Open the Google Keep app.
-Click the Create New Note button to add a new Note.
-Add a title for the note and add a small description.
-Press the back button and make an assertion to ensure that the note was added.
-Auther: Bharat Gaikwad
-Created on 05/07/2023
- */
 package Project;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
