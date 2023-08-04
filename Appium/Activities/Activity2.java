@@ -1,14 +1,4 @@
-/*
-Alchemy FST Batch May2023
-Activity-2 : Description:
-In @Test method,
-Open the following URL: https://www.training-support.net/
-Locate the heading on the page and print it to console.
-Locate the About Us button and click it.
-Print the heading on the About Us page to the console.
-Auther: Bharat Gaikwad
-Created on 03/07/2023
- */
+
 package activities;
 
 import io.appium.java_client.AppiumBy;
