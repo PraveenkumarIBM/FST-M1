@@ -1,11 +1,4 @@
-/*
-Rest Assured : Project : Github SSH Key  - POST, GET ,DELETE Request 
-Author: Bharat
-Created date:24/06/2023
-FST Batch May 2023 */
-
 package liveproject;
-
 import io.restassured.authentication.PreemptiveOAuth2HeaderScheme;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -23,7 +16,7 @@ public class GitHubSSHKeyCRUDOperation {
          // Declare request specification
         RequestSpecification requestSpec;
         // Declare SSH Key
-        String sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN9x9Xe9ewsykfmOmgWWAPfywi2KOMQjwnMfgxSJejpg gaikwadbd@in.ibm.com";
+        String sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN9x9Xe9ewsykfmOmgWWAPfywi2KOMQjwnMfgxSJejpg prave187@in.ibm.com";
         // Fetch SSH Key ID
         int getSSHKeyID;
 
