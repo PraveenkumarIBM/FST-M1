@@ -1,21 +1,4 @@
-/*
-Alchemy FST Batch May 2023
-ProjectActivity-6 Goal: Goal: Opening a page on the browser and testing a simple login page with correct and incorrect credentials [Bonus]
-Open the Chrome app on your device.
-Go to the following URL: https://www.training-support.net/selenium
-Scroll to find the Popups card and click it.
-Once the page loads, find the Sign In button on the page to open a popup with the login form.
-Find the username and password input fields in the popup and enter the following credentials in it:
-Username: admin
-Password: password
-Click on the Log in button to submit.
-If the credentials are correct, the message "Welcome Back,Admin should appear:
-If the credentials are incorrect, the message"Invalid Credentials appears:
-Write a test case for each scenario - One with the correct credentials and one with incorrect credentials
-Finally, write assertions for both test cases to verify results.
-Auther: Bharat Gaikwad
-Created on 04/07/2023
- */
+
 package Project;
 import java.net.MalformedURLException;
 import java.net.URL;
