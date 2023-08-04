@@ -1,11 +1,4 @@
-/*
-Rest Assured : Project : Pact Project  - POST - Create user -Use of Wiremock
-Author: Bharat
-Created date:24/06/2023
-FST Batch May 2023 */
-
 package liveproject;
-
 import au.com.dius.pact.consumer.dsl.DslPart;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
