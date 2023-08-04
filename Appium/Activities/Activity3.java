@@ -1,15 +1,4 @@
-/*
-Alchemy FST Batch May2023
-Activity-3 : Description: ACTIVITY 3
-In @Test methods, perform the following operations:
-Calculate 1050 + 2582 and print the result to the console.
-Calculate 7250 - 5280 and print the result to the console.
-Calculate 5137 * 6289 and print the result to the console.
-Calculate 5025 / 2005 and print the result to the console.
-Write assertions for all the results.
-Auther: Bharat Gaikwad
-Created on 03/07/2023
- */
+
 package activities;
 
 import io.appium.java_client.AppiumBy;
