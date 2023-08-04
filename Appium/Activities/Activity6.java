@@ -1,13 +1,4 @@
-/*
-Alchemy FST Batch May2023
-Activity-6 : Description :Write a Appium test script to perform the following:
-Open Google Chrome on your mobile device/emulator and open the following URL: https://www.training-support.net/selenium/lazy-loading
-Get the number of images shown in the view
-Scroll to the card with Helen's post
-Get number of images shown on the screen after scrolling.
-Auther: Bharat Gaikwad
-Created on 03/07/2023
- */
+
 package activities;
 import java.net.MalformedURLException;
 import java.net.URL;
